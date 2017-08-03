@@ -29,6 +29,10 @@ class ShipController {
     }
 
     //shoot
+    this.shoot();
+  }
+
+  shoot(){
     if (Nakama.keyboard.isDown(this.configs.fire)) {
       var timeNow = Nakama.game.time.time;
 

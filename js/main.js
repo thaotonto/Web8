@@ -104,6 +104,9 @@ var update = function() {
 var render = function() {}
 
 var onBulletHitEnemy = function(bulletSprite, enemySprite) {
-  bulletSprite.kill();
+  console.log(bulletSprite.frameName);
+  if (bulletSprite.frameName != 'BulletType3.png'){
+    bulletSprite.kill();
+  }
   enemySprite.damage(1);
 }
