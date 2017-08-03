@@ -1,15 +1,15 @@
 class ShipController {
   constructor(x, y, spriteName, configs) {
-    this.sprite = Nakama.game.add.sprite(x, y, 'assets', spriteName);
-    Nakama.game.physics.arcade.enable(this.sprite);
+    this.sprite = Nakama.playerGroup.create(x, y, 'assets', spriteName);
     this.sprite.body.collideWorldBounds = true;
     this.configs = configs;
-
+    this.sprite.anchor = new Phaser.Point(0.5, 0.5);
     this.nextShoot = 0;
     this.sprite.update = this.update.bind(this);
   }
 
   update() {
+    //moment
     if (Nakama.keyboard.isDown(this.configs.left)) {
       this.sprite.body.velocity.x = -this.configs.SPEED;
     } else
@@ -28,18 +28,16 @@ class ShipController {
       this.sprite.body.velocity.y = 0;
     }
 
+    //shoot
     if (Nakama.keyboard.isDown(this.configs.fire)) {
-      var timeNow = Nakama.game.time.now;
+      var timeNow = Nakama.game.time.time;
 
       if (this.nextShoot < timeNow) {
-        new BulletController(this.sprite.position.x + this.sprite.width / 2, this.sprite.position.y - this.sprite.height / 2, {
-          spriteName: 'BulletType1.png',
-          spriteWidth: 38,
-          SPEED: 400
-        });
+        this.fire();
         this.nextShoot = timeNow + this.configs.bulletDelay;
       }
     }
-
   }
+
+  fire() {}
 }
