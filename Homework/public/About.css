@@ -1,0 +1,45 @@
+.menu {
+  background-color: #D5B0AC;
+  text-align: center;
+}
+
+span {
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  color: #402E2A;
+  font-weight: bold;
+  display: inline-block;
+  cursor: pointer;
+}
+
+span:hover {
+  color: #FFFFFF;
+  background-color: #9CD08F;
+}
+
+.menu_vertical {
+  width: 100px;
+  bottom: 0px;
+  position: fixed;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, 0);
+}
+
+.menu_vertical>a {
+  display: inline-block;
+  border-bottom-color: white;
+  border-bottom-style: solid;
+  border-width: thin;
+}
+
+img {
+  display: inline;
+  width: 150px;
+  height: 300px;
+}
+
+h1{
+  margin-left: 20px;
+}

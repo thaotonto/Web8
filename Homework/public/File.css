@@ -1,7 +1,9 @@
+body {
+    height: 100vh;
+}
 .menu {
   background-color: #D5B0AC;
   text-align: center;
-  margin: auto;
 }
 
 span {
@@ -21,13 +23,21 @@ span:hover {
 
 .menu_vertical {
   width: 100px;
-  align-self: center;
-  margin-top: 20px;
+  bottom: 0px;
+  position: relative;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, 0);
 }
 
-.menu_vertical>span {
-  display: block;
+.menu_vertical>a {
+  display: inline-block;
   border-bottom-color: white;
   border-bottom-style: solid;
-  border-width:thin;
+  border-width: thin;
+}
+
+embed {
+  width: 100%;
+  height: 100%;
 }
