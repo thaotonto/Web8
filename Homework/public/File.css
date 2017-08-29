@@ -24,7 +24,7 @@ span:hover {
 .menu_vertical {
   width: 100px;
   bottom: 0px;
-  position: relative;
+  position: fixed;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, 0);
@@ -35,9 +35,4 @@ span:hover {
   border-bottom-color: white;
   border-bottom-style: solid;
   border-width: thin;
-}
-
-embed {
-  width: 100%;
-  height: 100%;
 }
