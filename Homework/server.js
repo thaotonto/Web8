@@ -1,22 +1,30 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser');
 const fileController = require('./fileController');
+const homeRouter = require('./HomeRouter');
+const askRouter = require('./AskRouter');
+const apiRouter = require('./apiRouter');
+const questionRouter = require('./questionRouter');
 
 let app = express();
-app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/html/HomePage.html');
-});
+app.engine('handlebars', handlebars({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(express.static(__dirname + '/public'));
+app.use('/', homeRouter);
+app.use('/ask', askRouter);
+app.use('/api', apiRouter);
+app.use('/question', questionRouter);
 
 app.get('/About', (req, res) => {
-  res.sendFile(__dirname + '/html/About.html');
+  res.render('about');
 });
 
 app.get('/File', (req, res) => {
-  let file = fileController.readFileSync('package.json');
-  let htmlFile= fileController.readFileSync('./html/File.html');
-  let result = htmlFile.replace(/future/g, file);
-  res.send(result);
+  let textRender = fileController.readFileSync('question.txt');
+  res.render('file', {textRender});
 });
 
 app.listen(6969, () => {
