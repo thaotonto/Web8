@@ -1,7 +1,12 @@
-<h3 class="ask ">Enter a question: </h3>
-<form class="form" action="/api/question"  method="post">
-  <input type="text" name="question" value="" placeholder="question" >
-  <br>
-  <br>
-  <input type="submit" name="" value="Submit">
-</form>
+<div class="container">
+  <h3 >Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h3>
+  <form class="" action="/api/question" method="post">
+    <div class="form-group">
+      <textarea id="question_tf" class="form-control" name="question" rows="6" maxlength="200"></textarea>
+      <p class="help-block">Còn <span id="text_counter">200</span>/200 ký tự.</p>
+    </div>
+    <input class="btn btn-primary" type="submit" name="" value="Gửi">
+  </form>
+</div>
+<script type="text/javascript" src="/ask.js">
+</script>

@@ -12,7 +12,6 @@ let app = express();
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(express.static(__dirname + '/public'));
 app.use('/', homeRouter);
 app.use('/ask', askRouter);
 app.use('/api', apiRouter);
@@ -28,6 +27,8 @@ app.get('/File', (req, res) => {
   question = fileController.getRandomQuestion();
   res.render('file', {textRender, nav: `/question/${fileController.getRandomQuestion().id}`});
 });
+
+app.use(express.static(__dirname + '/public'));
 
 app.listen(6969, () => {
   console.log('Server is ready');

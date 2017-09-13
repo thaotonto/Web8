@@ -3,10 +3,14 @@ const Router = express.Router();
 const fileController = require('./fileController');
 
 Router.get('/', (req, res) => {
-  
+
 });
 
-Router.post('/question', (req, res, next) => {
+Router.get('/question', (req, res) => {
+  res.send(fileController.getRandomQuestion());
+});
+
+Router.post('/question', (req, res) => {
   let jsonData = {
     id: fileController.getTotalQuestion(),
     question: req.body.question,

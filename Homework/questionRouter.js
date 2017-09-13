@@ -13,7 +13,8 @@ Router.get('/:id', (req, res) => {
     question: question.question,
     nYes: question.yes,
     nNo: question.no,
-    nav: `/question/${fileController.getRandomQuestion().id}`
+    nav: `/question/${fileController.getRandomQuestion().id}`,
+    answerview: true
   });
 });
 
