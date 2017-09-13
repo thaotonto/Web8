@@ -12,7 +12,8 @@ Router.get('/:id', (req, res) => {
   res.render('questionid', {
     question: question.question,
     nYes: question.yes,
-    nNo: question.no
+    nNo: question.no,
+    nav: `/question/${fileController.getRandomQuestion().id}`
   });
 });
 

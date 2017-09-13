@@ -39,6 +39,12 @@ const getTotalQuestion = () => {
   return getListQuestion().length;
 }
 
+const getRandomQuestion = () => {
+  listQuestion = getListQuestion();
+  question = listQuestion[Math.floor((Math.random() * listQuestion.length))];
+  return question;
+}
+
 module.exports = {
   saveFileSync,
   readFile,
@@ -46,5 +52,6 @@ module.exports = {
   appendFileSync,
   getTotalQuestion,
   getListQuestion,
-  appendFile
+  appendFile,
+  getRandomQuestion
 }

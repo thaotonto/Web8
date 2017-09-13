@@ -8,14 +8,16 @@ Router.get('/', (req, res) => {
     question = 'There is no question yet';
     res.render('home', {
       question,
-      visibility: 'hidden'
+      visibility: 'hidden',
+      nav: `/question/${fileController.getRandomQuestion().id}`
     });
   } else {
-    listQuestion = fileController.getListQuestion();
-    question = listQuestion[Math.floor((Math.random() * listQuestion.length))];
+
+    question = fileController.getRandomQuestion();
     res.render('home', {
       question : question.question,
-      href: `/api/question/${question.id}`
+      href: `/api/question/${question.id}`,
+      nav: `/question/${fileController.getRandomQuestion().id}`
     });
   }
 });

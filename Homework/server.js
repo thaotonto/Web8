@@ -19,12 +19,14 @@ app.use('/api', apiRouter);
 app.use('/question', questionRouter);
 
 app.get('/About', (req, res) => {
-  res.render('about');
+  question = fileController.getRandomQuestion();
+  res.render('about',{nav: `/question/${fileController.getRandomQuestion().id}`});
 });
 
 app.get('/File', (req, res) => {
   let textRender = fileController.readFileSync('question.txt');
-  res.render('file', {textRender});
+  question = fileController.getRandomQuestion();
+  res.render('file', {textRender, nav: `/question/${fileController.getRandomQuestion().id}`});
 });
 
 app.listen(6969, () => {
