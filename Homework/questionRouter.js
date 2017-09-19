@@ -1,20 +1,24 @@
 const express = require('express');
 const Router = express.Router();
-const fileController = require('./fileController');
+const {getRandomQuestion, getQuestionById} = require('./questionController.js');
 
 Router.get('/', (req, res, next) => {
   res.render('questionid');
 })
 
 Router.get('/:id', (req, res) => {
-  question = fileController.getListQuestion();
-  question = question[req.params.id];
-  res.render('questionid', {
-    question: question.question,
-    nYes: question.yes,
-    nNo: question.no,
-    nav: `/question/${fileController.getRandomQuestion().id}`,
-    answerview: true
+  getQuestionById(req.params.id, (err, question) => {
+    getRandomQuestion((err, newQuestion) => {
+      if (err == null) {
+        res.render('questionid', {
+          question: question.question,
+          nYes: question.yes,
+          nNo: question.no,
+          nav: `/question/${newQuestion._id}`,
+          answerview: true
+        });
+      }
+    });
   });
 });
 

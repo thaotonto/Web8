@@ -1,49 +1,44 @@
 const express = require('express');
 const Router = express.Router();
-const fileController = require('./fileController');
+const {getRandomQuestion, answerQuestion, addNewQuestion, getQuestionById} = require('./questionController.js');
 
 Router.get('/', (req, res) => {
 
 });
 
 Router.get('/question', (req, res) => {
-  res.send(fileController.getRandomQuestion());
+  getRandomQuestion((err, question) => {
+    if (err == null) {
+      res.send(question);
+    } else {
+      if (err == "No question Found") {
+        res.send("No question Found");
+      } else {
+        res.send(question);
+      }
+    }
+  });
 });
 
 Router.post('/question', (req, res) => {
-  let jsonData = {
-    id: fileController.getTotalQuestion(),
-    question: req.body.question,
-    yes: 0,
-    no: 0
-  };
-
-  if (fileController.getTotalQuestion() == 0) {
-    stringData = JSON.stringify(jsonData);
-  } else {
-    stringData = ",\n" + JSON.stringify(jsonData);
-  }
-  fileController.appendFileSync('question.txt', stringData);
-  res.redirect(`/question/${jsonData.id}`);
+  addNewQuestion(req.body.question, (err, question) => {
+    if (err == null) {
+      res.redirect(`/question/${question.id}`);
+    }
+  });
 });
 
 Router.post('/question/:id', (req, res) => {
-  question = fileController.getListQuestion();
-  if (req.body.choice === 'yes') {
-    question[req.params.id].yes += 1;
-  } else {
-    question[req.params.id].no += 1;
-  }
-  let saveString = "";
-  for (i = 0; i < question.length; i++) {
-    if (i == 0) {
-      saveString += JSON.stringify(question[i]);
+  getQuestionById(req.params.id, (err, question) => {
+    if (req.body.choice === 'yes') {
+      question.yes += 1;
     } else {
-      saveString += ",\n" + JSON.stringify(question[i]);
+      question.no += 1;
     }
-  }
-  fileController.saveFileSync('question.txt', saveString);
-  res.redirect(`/question/${req.params.id}`);
+    answerQuestion(question, (err, updatedQuestion) => {
+      res.redirect(`/question/${updatedQuestion.id}`);
+    });
+  });
 });
 
 module.exports = Router;

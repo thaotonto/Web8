@@ -1,25 +1,33 @@
 const express = require('express');
-const fileController = require('./fileController');
 const Router = express.Router();
+const {getRandomQuestion, getQuestionList} = require('./questionController.js');
 
 Router.get('/', (req, res) => {
-  let question;
-  if (fileController.getTotalQuestion() === 0) {
-    question = 'There is no question yet';
-    res.render('home', {
-      question,
-      visibility: 'hidden',
-      nav: `/question/${fileController.getRandomQuestion().id}`
-    });
-  } else {
-
-    question = fileController.getRandomQuestion();
-    res.render('home', {
-      question : question.question,
-      href: `/api/question/${question.id}`,
-      nav: `/question/${fileController.getRandomQuestion().id}`
-    });
-  }
+  getQuestionList((err, questions) => {
+    if (err == null) {
+      if (questions.length === 0) {
+        res.render('home', {
+          question: "No question in database",
+          visibility: 'hidden',
+          nav: `/`
+        });
+      } else {
+        getRandomQuestion((err, question) => {
+          if (err == null) {
+            getRandomQuestion((err, questionRandom) => {
+              if (err == null) {
+                res.render('home', {
+                  question: question.question,
+                  href: `/api/question/${question._id}`,
+                  nav: `/question/${questionRandom._id}`
+                });
+              }
+            });
+          }
+        });
+      }
+    }
+  });
 });
 
 module.exports = Router;
