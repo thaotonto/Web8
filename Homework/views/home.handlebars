@@ -13,7 +13,7 @@
   }).done((data) => {
     console.log(data);
     $('#question').html(data.question);
-    $("form").attr("action", "api/question" + data.id);
+    $("form").attr("action", "api/question/" + data.id);
   }).fail((err) => {
     console.log(err);
   });

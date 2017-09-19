@@ -1,6 +1,8 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 const fileController = require('./fileController');
 const homeRouter = require('./HomeRouter');
 const askRouter = require('./AskRouter');
@@ -8,6 +10,14 @@ const apiRouter = require('./apiRouter');
 const questionRouter = require('./questionRouter');
 
 let app = express();
+
+mongoose.connect('mongodb://localhost/quizd', (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('connect success');
+  }
+});
 
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
